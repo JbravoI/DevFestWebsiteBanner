@@ -4,6 +4,7 @@
 const textInput = document.getElementById('location');
 const fileInput = document.getElementById('file-upload');
 const bannerPreviewBlue = document.getElementById('banner-preview-blue');
+const bannerPreviewYellow = document.getElementById('banner-preview-yellow');
 const downloadBtn = document.getElementById('download-btn');
 
 let bannerConfig = {};
@@ -19,9 +20,13 @@ fetch('files/bannerConfig.json')
     alert('Could not load bannerConfig.json. Using defaults.');
   });
 
-// Set canvas size for banner template
+// Set canvas size for banner blue template
 bannerPreviewBlue.width = bannerConfig.banner_blue.img_w;
 bannerPreviewBlue.height = bannerConfig.banner_blue.img_h;
+
+// Set canvas size for banner yellow template
+bannerPreviewYellow.width = bannerConfig.banner_yellow.img_w;
+bannerPreviewYellow.height = bannerConfig.banner_yellow.img_h;
 
 // Show banner template image on page load
 window.addEventListener('DOMContentLoaded', () => {
@@ -36,7 +41,23 @@ window.addEventListener('DOMContentLoaded', () => {
     .width, bannerPreviewBlue
     .height);
   };
-  img.src = 'images/banner/banner_blue_sample.png';
+  img.src = 'images/banner/blue_banner_sample.png';
+});
+
+// Show banner template image on page load
+window.addEventListener('DOMContentLoaded', () => {
+  const ctx = bannerPreviewYellow
+.getContext('2d');
+  const img = new Image();
+  img.onload = function() {
+    ctx.clearRect(0, 0, bannerPreviewYellow
+    .width, bannerPreviewYellow
+    .height);
+    ctx.drawImage(img, 0, 0, bannerPreviewYellow
+    .width, bannerPreviewYellow
+    .height);
+  };
+  img.src = 'images/banner/yellow_banner_sample.png';
 });
 
 // File upload handler
